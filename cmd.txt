@@ -5,7 +5,7 @@ virtualenv venv
 mkdir app && cd app
 git init
 git status
-pip install flask
+pip install gunicorn flask
 python -c "import flask; print(flask.__version__)"
 
 # Разработка приложения
@@ -21,7 +21,7 @@ export FLASK_ENV=development
 flask run
 
 # Создать репозиторий на GitHub
-git remote add origin git@github.com:makotakara/<folder_project_name>.git
+git remote add origin git@github.com:makotakara/performance_page.git
 pip freeze > requirement.txt
 vi .gitignore
 git branch -M main
@@ -39,7 +39,44 @@ git clone https://github.com/makotakara/performance_page.git
 mv performance_page app && cd app
 pip install -r requirement.txt
 
+
 # Скачать новую версию проэкта
 git pull origin
 
+# Создание точки входа WSGI
+vi /wsgi.py
+
+#--------------------
+
+from main import app
+
+if __name__ == "__main__":
+    app.run()
+
+#--------------------
+
+
+# Создание сервиса
+sudo vi /etc/systemd/system/performance_page.service
+
+###
+[Unit]
+Description=Gunicorn instance to serve performance_page
+After=network.target
+
+[Service]
+User=app_user
+Group=www-data
+WorkingDirectory=/home/app_user/project/performance_page/app
+Environment="PATH=/home/app_user/project/performance_page/venv/bin/"
+ExecStart=/home/app_user/project/performance_page/venv/bin/gunicorn --bind 0.0.0.0:5000 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
+###
+
+# Запуск
+sudo systemctl start  performance_page
+sudo systemctl enable performance_page
+sudo systemctl status performance_page
 
