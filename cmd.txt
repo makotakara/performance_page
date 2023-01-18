@@ -8,7 +8,9 @@ git status
 pip install flask
 python -c "import flask; print(flask.__version__)"
 
-vi app.py
+# Разработка приложения
+vi main.py
+vi wsgi.py
 mkdir templates
 vi templates/index.html
 vi templates/base.html
@@ -17,3 +19,12 @@ vi templates/base.html
 export FLASK_APP=app
 export FLASK_ENV=development
 flask run
+
+# Создать репозиторий на GitHub
+git remote add origin git@github.com:makotakara/<folder_project_name>.git
+pip freeze > requirement.txt
+vi .gitignore
+git branch -M main
+git add .
+git commit -am "firts commit"
+git push -u origin main
