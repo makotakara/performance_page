@@ -30,9 +30,16 @@ git commit -am "firts commit"
 git push -u origin main
 
 # Для разворачивания проэкта на другой сервере
-mkdir <folder_project_name> && cd <folder_project_name>
+# Зайти на серевер 213.226.71.55
+cd /home/app_user/project/
+mkdir performance_page && cd performance_page
 virtualenv venv
 source venv/bin/activate
-git clone https://github.com/makotakara/<folder_project_name>.git
-mv <folder_project_name> app && cd app
+git clone https://github.com/makotakara/performance_page.git
+mv performance_page app && cd app
 pip install -r requirement.txt
+
+# Скачать новую версию проэкта
+git pull origin
+
+
