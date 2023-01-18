@@ -30,7 +30,7 @@ git commit -am "firts commit"
 git push -u origin main
 
 # Для разворачивания проэкта на другой сервере
-# Зайти на серевер 213.226.71.55
+# Зайти на серевер 
 cd /home/app_user/project/
 mkdir performance_page && cd performance_page
 virtualenv venv
