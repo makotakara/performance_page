@@ -1,0 +1,19 @@
+### Начало проэкта
+mkdir <folder_project_name> && cd <folder_project_name>
+pip install virtualenv
+virtualenv venv
+mkdir app && cd app
+git init
+git status
+pip install flask
+python -c "import flask; print(flask.__version__)"
+
+vi app.py
+mkdir templates
+vi templates/index.html
+vi templates/base.html
+
+# Запуск приложения
+export FLASK_APP=app
+export FLASK_ENV=development
+flask run

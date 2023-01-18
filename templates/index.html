@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Hello {% endblock %}
+
+{% block content %}
+
+    <h1 class="mx-auto">Performance page</h1>
+
+    <div>
+        <div class="row">
+            <div class="col-2">uptime</div>
+            <div class="col-md-auto">{{ perf['uptime'] }}</div>
+        </div>
+        <div class="row">
+            <div class="col-2">load_average</div>
+            <div class="col-md-auto">{{ perf['la1'] }}, {{ perf['la5'] }}, {{ perf['la15'] }}</div>
+        </div>
+        <div class="row">
+            <div class="col-2">memory_util</div>
+            <div class="col-md-auto">{{ perf['memory_util'] }} %</div>
+        </div>
+        <div class="row">
+            <div class="col-2">swap_util</div>
+            <div class="col-md-auto">{{ perf['swap_util'] }} %</div>
+        </div>
+        <div class="row">
+            <div class="col-2">fs_util</div>
+            <div class="col-md-auto">{{ perf['fs_util'] }} %</div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
