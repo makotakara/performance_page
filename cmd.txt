@@ -1,5 +1,5 @@
 ### Начало проэкта
-mkdir <folder_project_name> && cd <folder_project_name>
+mkdir performance_page && cd performance_page
 pip install virtualenv
 virtualenv venv
 mkdir app && cd app
@@ -16,7 +16,7 @@ vi templates/index.html
 vi templates/base.html
 
 # Запуск приложения
-export FLASK_APP=app
+export FLASK_APP=main
 export FLASK_ENV=development
 flask run
 
@@ -29,6 +29,9 @@ git add .
 git commit -am "firts commit"
 git push -u origin main
 
+# Скачать новую версию проэкта
+git pull origin
+
 # Для разворачивания проэкта на другой сервере
 # Зайти на серевер 
 cd /home/app_user/project/
@@ -39,27 +42,10 @@ git clone https://github.com/makotakara/performance_page.git
 mv performance_page app && cd app
 pip install -r requirement.txt
 
+# Создать unit
+vi /etc/systemd/system/performance_page.service
 
-# Скачать новую версию проэкта
-git pull origin
-
-# Создание точки входа WSGI
-vi /wsgi.py
-
-#--------------------
-
-from main import app
-
-if __name__ == "__main__":
-    app.run()
-
-#--------------------
-
-
-# Создание сервиса
-sudo vi /etc/systemd/system/performance_page.service
-
-###
+##
 [Unit]
 Description=Gunicorn instance to serve performance_page
 After=network.target
@@ -69,14 +55,15 @@ User=app_user
 Group=www-data
 WorkingDirectory=/home/app_user/project/performance_page/app
 Environment="PATH=/home/app_user/project/performance_page/venv/bin/"
-ExecStart=/home/app_user/project/performance_page/venv/bin/gunicorn --bind 0.0.0.0:5000 wsgi:app
+ExecStart=/home/app_user/project/performance_page/venv/bin/gunicorn --bind 0.0.0.0:5000 wsgi:app 
 
 [Install]
 WantedBy=multi-user.target
-###
+##
 
-# Запуск
-sudo systemctl start  performance_page
-sudo systemctl enable performance_page
-sudo systemctl status performance_page
+systemctl daemon-reload
+systemctl start performance_page.service
+systemctl enable performance_page.service
+systemctl status performance_page.service
+
 

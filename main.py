@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
 
-    metrics = os.popen("curl -s http://127.0.0.1:9100/metrics | grep -v '#'").read().split('\n')
+    metrics = os.popen("/usr/bin/curl -s http://127.0.0.1:9100/metrics | /usr/bin/grep -v '#'").read().split('\n')
 
     dict_tmp = {}
 
